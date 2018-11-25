@@ -29,6 +29,29 @@ namespace ImageGallery.Client
 
             // register an IImageGalleryHttpClient
             services.AddScoped<IImageGalleryHttpClient, ImageGalleryHttpClient>();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            })
+            .AddCookie("Cookies")
+            .AddOpenIdConnect("oidc", opt =>
+            {
+                opt.SignInScheme = "Cookies";
+                opt.Authority = "http://localhost:5000/";
+                opt.ClientId = "imagegalleryclient";
+                opt.ResponseType = "code id_token";
+                opt.Scope.Clear();
+                //opt.CallbackPath = new PathString();
+                opt.Scope.Add("openid");
+                //opt.Scope.Add("profile");
+                opt.SaveTokens = true;
+                opt.ClientSecret = "secret";
+
+                // shouldn't do that
+                opt.RequireHttpsMetadata = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +65,7 @@ namespace ImageGallery.Client
             {
                 app.UseExceptionHandler("/Shared/Error");
             }
-
+            app.UseAuthentication();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

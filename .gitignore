@@ -4,3 +4,12 @@
 
 /Starter Files/ImageGallery/.vs/ImageGallery/v15
 /.vs/SecuringAspNetCore2WithOAuth2AndOIDC/v15
+/Finished Sample/ImageGallery/src/Marvin.IDP/bin/Debug/netcoreapp2.0
+/MyImplementation/ImageGallery/Idp/bin/Debug/netcoreapp2.0
+/MyImplementation/ImageGallery/Idp/obj/Debug/netcoreapp2.0
+/MyImplementation/ImageGallery/Idp/obj/Idp.csproj.nuget.cache
+*.props
+*.targets
+/MyImplementation/ImageGallery/src/ImageGallery.API/bin/Debug/netcoreapp2.0
+/MyImplementation/ImageGallery/.vs/ImageGallery/v15/Server/sqlite3
+*.dtbcache
