@@ -170,6 +170,10 @@ namespace ImageGallery.Client.Controllers
 
         public async Task WriteOutIdentityInformation()
         {
+            Debug.WriteLine("*****************************************************************");
+            Debug.WriteLine("*****************************************************************");
+            Debug.WriteLine("*****************************************************************");
+
             // get the saved identity token
             var identityToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.IdToken);
 
@@ -181,6 +185,16 @@ namespace ImageGallery.Client.Controllers
             {
                 Debug.WriteLine($"Claim type: {claim.Type} - Claim value: {claim.Value}");
             }
+
+            Debug.WriteLine("*****************************************************************");
+            Debug.WriteLine("*****************************************************************");
+            Debug.WriteLine("*****************************************************************");
+        }
+
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            await HttpContext.SignOutAsync("oidc");
         }
     }
 }

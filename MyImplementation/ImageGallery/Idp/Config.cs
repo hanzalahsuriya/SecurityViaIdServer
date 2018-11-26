@@ -103,10 +103,14 @@ namespace Idp
                     {
                         "http://localhost:5001/signin-oidc"
                     },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "http://localhost:5001/signout-callback-oidc"
+                    },
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        //IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile
                     },
                     ClientSecrets = {
                         new Secret("secret".Sha256())

@@ -45,9 +45,13 @@ namespace ImageGallery.Client
                 opt.Scope.Clear();
                 //opt.CallbackPath = new PathString();
                 opt.Scope.Add("openid");
-                //opt.Scope.Add("profile");
+                opt.Scope.Add("profile");
                 opt.SaveTokens = true;
                 opt.ClientSecret = "secret";
+
+
+                opt.GetClaimsFromUserInfoEndpoint = true;
+                opt.SaveTokens = true;
 
                 // shouldn't do that
                 opt.RequireHttpsMetadata = false;
