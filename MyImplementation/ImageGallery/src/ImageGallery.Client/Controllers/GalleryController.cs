@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using IdentityModel.Client;
 
 namespace ImageGallery.Client.Controllers
 {
@@ -166,6 +167,29 @@ namespace ImageGallery.Client.Controllers
             }
 
             throw new Exception($"A problem happened while calling the API: {response.ReasonPhrase}");
+        }
+
+        public async Task<IActionResult> OrderFrame()
+        {
+            var discoverClient = new DiscoveryClient("http://localhost:5000");
+            var response = await discoverClient.GetAsync();
+
+            var userInfoClient = new UserInfoClient(response.UserInfoEndpoint);
+
+            var accessToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+            var result = await userInfoClient.GetAsync(accessToken);
+
+
+            if (result.IsError)
+            {
+                throw new Exception("problem accessing userinfo endpoint", response.Exception);
+            }
+
+            var address = result.Claims.FirstOrDefault(x => x.Type == "address")?.Value;
+
+
+            return View(new OrderFrameViewModel(address));
+
         }
 
         public async Task WriteOutIdentityInformation()
